@@ -582,15 +582,99 @@ $\varphi \equiv p_1 \wedge p_0 \to (p_0 \to p_3)$, se scriviamo $\varphi[\neg p_
 \[ \varphi[\neg p_0 \to p_3/ p_0] = p_1 \wedge (\neg p_0 \to p_3) \to ((\neg p_0 \to p_3) \to p_3) \]
 
 
+% ============================ LEZIONE 6 - 19/10/23 ============================
 
+\section {Definizione algebrica della semantica}
 
+\begin{itemize}
+\item $\val{\varphi \wedge \psi}_v = \val{\varphi}_v \cdot \val{\psi}_v$
+\item $\val{\varphi \lor \psi}_v = \val{\varphi}_v + \val{\psi}_v$
+\item $\val{\varphi \to \psi}_v = 1-\val{\varphi} + \val{\varphi}_v \cdot \val{\psi}$
+\item $\val{\neg\varphi}_v = 1 - \val{\varphi}_v$
+\item $\val{\varphi \leftrightarrow \psi}_v = 1 - |\val{\varphi}_v - \val{\psi}_v |$
+\end{itemize}
 
+\section{Propriet\`{a} della Semantica}
 
+\subsection{Associativa}
+La semantica gode della propriet\`{a} associativa:
+\[(\varphi \wedge \psi) \wedge \sigma \leftrightarrow \varphi \wedge (\psi \wedge \sigma) \]
+\[(\varphi \lor \psi) \lor \sigma \leftrightarrow \varphi \lor (\psi \lor \sigma) \]
 
+\subsubsection{Dimostrazione $\vDash(\varphi \wedge \psi) \wedge \sigma \leftrightarrow \varphi \wedge (\psi \wedge \sigma)$}
+\[ \forall v \thickspace \val{(\varphi \wedge \psi) \wedge \sigma}_v = \val{\varphi \wedge (\psi \wedge \sigma)}_v\]
+\[\iff \val{\varphi \wedge \psi}_v = 1 \text{ and } \val{\sigma}_v=1\]
+\[ \iff \val{\varphi}_v = 1 \text{ and } \val{\psi}_v = 1 \text{ and } \val{\sigma}_v = 1 \]
 
+\subsection{Commutativa}
+La semantica gode della propriet\`{a} commutativa:
+\[ \varphi \wedge \psi \leftrightarrow \psi \wedge \varphi \]
+\[ \varphi \lor \psi \leftrightarrow \psi \lor \varphi \]
 
+\subsection{Distributiva}
+La semantica gode della propriet\`{a} distributiva:
+\[ \varphi \wedge (\psi \lor \sigma) \leftrightarrow (\varphi \wedge \psi) \lor (\varphi \wedge \sigma) \]
+\[ \varphi \lor (\psi \wedge \sigma) \leftrightarrow (\varphi \lor \psi) \wedge (\varphi \lor \sigma) \]
 
+\subsection{Legge di De Morgan}
+Valgono le seguenti leggi:
+\[ \neg(\varphi \wedge \psi) \leftrightarrow \neg \varphi \lor \neg \psi \]
+\[ \neg (\varphi \lor \psi) \leftrightarrow \neg \varphi \wedge \neg \psi \]
 
+\subsection {Idempotenza}
+\[ \varphi \wedge \varphi \leftrightarrow \varphi \]
+\[ \varphi \lor \varphi \leftrightarrow \varphi \]
 
+\subsection{Legge della doppia negazione}
+\[ \neg\neg\varphi \leftrightarrow \varphi \]
+
+\subsection{Top, la formula sempre vera ($\top$)}
+Si definisce la formula sempre vera come $\top \equiv \bot \to \bot$. In generale, si pu\`{o} dimostrare che $\vDash \bot \to \varphi \thickspace \forall \varphi \in PROP$. Infatti:
+\begin{center}
+\begin{tabular}{c c| c}
+$\bot$ & $\varphi$ & $\bot \to \varphi$ \\
+\hline
+$0$ & $0$ & 1 \\
+$0$ & $1$ & 1 
+\end{tabular}
+\end{center}
+che semanticamente lo possiamo scrivere come segue:
+\[ \val{\bot \to \varphi}_v = 1 \iff \val{\bot}_v = 0 \thickspace \text{ or }\thickspace \val{\varphi}_v = 1\]
+
+% ============================ LEZIONE 7 - 23/10/23 ============================ 
+
+\chapter{Deduzione Naturale}
+
+\section{Concetto di Derivazione}
+
+Nella Semantica abbiamo definito $\vDash$ come \emph{conseguenze logiche} e, nel caso in cui l'insieme delle premesse sia vuoto, come \emph{tautologie}. Nella \emph{deduzione naturale} possiamo definire delle \emph{derivazioni} da un insieme di ipotesi, oppure dei \emph{teoremi}, se l'insieme delle ipotesi \`{e} vuoto.
+\[ \Gamma \vdash \varphi \Rightarrow \text{ significa che posso trovare una derivazione dalle formule in $\Gamma$ a $\varphi$}.\]
+\[ \vdash \varphi \Rightarrow \text{ significa che $\varphi$ \`{e} un teorema}.\]
+
+\`{E} possibile dimostrare che tautologie e teoremi coincidono.
+
+\section{Le regole di derivazione}
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (2,0);
+\node at (0,0) [above right]{$\varphi$};
+\node at (2,0) [above left]{$\psi$};
+\node at (1,0) [below] {$\sigma$};
+
+\draw[->] (3,0.25) -- (2,0.25);
+\node at(3,0) [above right]{premesse e ipotesi};
+
+\draw[->] (3,-0.25) -- (2, -0.25);
+\node at (3,0) [below right]{conclusioni};
+
+\draw[->] (-2, 0) -- (-0.5, 0);
+\node at(-2, 0.1) [left] {applicazione};
+\node at(-2,-0.1)[below left] {di una regola};
+\end{tikzpicture}
+\end{center}
+
+Questo \`{e} un esempio di derivazione, ma per poter dare un senso a questa notazione sintattica si devono introdurre delle regole di eliminazione ed introduzione dei connettivi.
+
+\subsection{Regole di Eliminazione ed Introduzione}
 
 \end{document}
