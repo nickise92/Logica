@@ -17,6 +17,8 @@
 \usepackage[only,llbracket,rrbracket]{stmaryrd}
 \newcommand\val[1]{\llbracket#1\rrbracket}
 \newcommand\Iff{\Leftrightarrow}
+\newcommand\raa{RAA}
+
 
 \newcommand\qed{\begin{flushright}{$\square$}\end{flushright}}
 
@@ -683,7 +685,7 @@ Questo \`{e} un esempio di derivazione, ma per poter dare un senso a questa nota
 \subsubsection{$\wedge I$ - AND Introduction}
 \begin{center}
 \begin{tikzpicture}
-\draw (0,0) -- (2,0);
+\draw (0,0) -- (2,0) node[right] {$\wedge I$};
 \node at (0,0) [above right] {$\varphi$};
 \node at (2,0)[above left] {$\psi$};
 \node at (1,0)[below] {$\varphi \wedge \psi$};
@@ -692,7 +694,7 @@ Questo \`{e} un esempio di derivazione, ma per poter dare un senso a questa nota
 \subsubsection{$\wedge E_1$ - AND Elimination}
 \begin{center}
 \begin{tikzpicture}
-\draw (0,0) -- (2,0);
+\draw (0,0) -- (2,0) node[right] {$\wedge E_1$};
 \node at (1,0)[above] {$\varphi \wedge \psi$};
 \node at (1,0) [below] {$\varphi$};
 \end{tikzpicture}
@@ -700,19 +702,111 @@ Questo \`{e} un esempio di derivazione, ma per poter dare un senso a questa nota
 \subsubsection{$\wedge E_2$ - AND Elimination}
 \begin{center}
 \begin{tikzpicture}
-\draw (0,0) -- (2,0);
+\draw (0,0) -- (2,0) node[right] {$\wedge E_2$};
 \node at (1,0)[above] {$\varphi \wedge \psi$};
 \node at (1,0)[below] {$\psi$};
 \end{tikzpicture}
 \end{center}
 \end{multicols}
 
+\begin{multicols}{2}
+\subsubsection{$\to I$ -  Implication Introduction}
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (2,0) node[right]{$\to I^1$};
+\draw[->][blue] (-0.5, 1.4) -- (0.5, 1.4);
+\node at (-0.5,1.4)[above left][blue] {Scarico};
+\node at (-0.5,1.4)[below left][blue] {l'ipotesi};
+\node at (1,1.2)[above] {$[\varphi]^1$};
+\node at (1,1) {$\vdots$};
+\node at (1,0)[above] {$\psi$};
+\node at (1,0)[below] {$\varphi \to \psi$};
+\end{tikzpicture}
+\end{center}
+\subsubsection{$\to E$ - Implication Elimination}
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (3,0) node[right] {$\to E$};
+\node at (0,0)[above right] {$\varphi \to \psi$};
+\node at (3,0)[above left] {$\varphi$};
+\node at (1.5,0) [below] {$\psi$};
+\end{tikzpicture}
+\end{center}
+\end{multicols}
 
+\begin{multicols}{2}[
+Regole dell'implicazione applicate al NOT ($\neg$):
+]
+\subsubsection{$\to I$ -  Implication Introduction}
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (2,0) node[right]{$\to I^1 (Intr. \neg)$};
+\node at (1,1.2)[above] {$[\varphi]^1$};
+\draw[->][blue] (-0.5, 1.4) -- (0.5, 1.4);
+\node at (-0.5,1.4)[above left][blue] {Scarico};
+\node at (-0.5,1.4)[below left][blue] {l'ipotesi};
+\node at (1,1) {$\vdots$};
+\node at (1,0)[above] {$\bot$};
+\node at (1,0)[below] {$\neg \varphi$};
+\end{tikzpicture}
+\end{center}
+\subsubsection{$\to E$ - Implication Elimination}
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (3,0) node[right] {$\to E$};
+\node at (0,0)[above right] {$\neg\varphi$};
+\node at (3,0)[above left] {$\varphi$};
+\node at (1.5,0) [below] {$\bot$};
+\end{tikzpicture}
+\end{center}
+\end{multicols}
 
+\begin{multicols}{2}
+\subsubsection{$\bot$ -  Bottom Rule}
+Ex falso sequitor quodlibet, ovvero dal falso posso derivare qualsiasi cosa.
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (2,0) node[right]{$\bot$};
+\node at (1,0)[above] {$\bot$};
+\node at (1,0)[below] {$\varphi$};
+\end{tikzpicture}
+\end{center}
+\subsubsection{$\raa$ - Reduction Ad Absurdum}
+Se assumendo $\neg\varphi$ derviamo il \emph{bottom} allora $\varphi$.
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (2,0) node[right]{\raa$^1$};
+\node at (1,1.2)[above] {$[\neg\varphi]^1$};
+\draw[->][blue] (-0.5, 1.4) -- (0.5, 1.4);
+\node at (-0.5,1.4)[above left][blue] {Scarico};
+\node at (-0.5,1.4)[below left][blue] {l'ipotesi};
+\node at (1,1) {$\vdots$};
+\node at (1,0)[above] {$\bot$};
+\node at (1,0)[below] {$\varphi$};
+\end{tikzpicture}
+\end{center}
+\end{multicols}
 
+In alcuni casi dobbiamo \emph{scaricare le ipotesi}, ovvero l'applicazione di quella regole 'consuma' l'ipotesi che viene quindi rimossa dall'insieme delle ipotesi. Per derivare un \textbf{teorema} \`{e} importante che tutte le ipotesi siano scaricate perch\'{e} un teorema ha come insieme delle ipotesi l'insieme vuoto. Lo scarico di una ipotesi si denota con delle parentesi quadre attorno ad essa e, generalmente, si usa associare un numero per collegarla alla regola che ne prevede lo scarico.
 
+\newpage
+\subsection{Esempio di derivazione}
 
+Data la tautologia $\vDash (\varphi \to \psi) \leftrightarrow (\neg\psi \to \neg\varphi)$, che possiamo dimostrare semanticamente, possiamo derivare il \emph{teorema} $\vdash (\varphi \to \psi) \leftrightarrow (\neg\psi \to \neg\varphi)$.
 
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (12,0) node[right] {$\wedge I$};
+\node at (5,0) [below] {$ (\varphi \to \psi) \leftrightarrow (\neg\psi \to \neg\varphi) $};
+\node at (0,0) [above right] {$(\varphi \to \psi) \to (\neg\psi \to \neg\varphi)$};
+\node at (12,0) [above left] {$(\neg\psi \to \neg\varphi) \to (\varphi \to \psi)$};
+
+\draw (0,0.75) -- (4.5,0.75) node[right]{$\to I^1$};
+\node at (2.25,0.75) [above] {$\neg\psi \to \neg\varphi$};
+\draw (1,1.35) -- (3.5,1.35) node[right]{$\to I^2$};
+\node at (2.25, 1.25) [above] {$\neg\varphi$};
+\end{tikzpicture}
+\end{center}
 
 
 
