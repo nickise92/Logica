@@ -18,6 +18,9 @@
 \newcommand\val[1]{\llbracket#1\rrbracket}
 \newcommand\Iff{\Leftrightarrow}
 \newcommand\raa{RAA}
+\usepackage{graphicx}
+
+\graphicspath{{./img/}}
 
 
 \newcommand\qed{\begin{flushright}{$\square$}\end{flushright}}
@@ -803,13 +806,61 @@ Data la tautologia $\vDash (\varphi \to \psi) \leftrightarrow (\neg\psi \to \neg
 
 \draw (0,0.75) -- (4.5,0.75) node[right]{$\to I^1$};
 \node at (2.25,0.75) [above] {$\neg\psi \to \neg\varphi$};
-\draw (1,1.35) -- (3.5,1.35) node[right]{$\to I^2$};
+\draw (1,1.35) -- (3.5,1.35) node[right]{$\to I^3$};
 \node at (2.25, 1.25) [above] {$\neg\varphi$};
+
+\draw (1.5,1.8) -- (3,1.8) node[right]{$\to I^5$};
+\node at (2.25, 1.8) [above] {$\bot$};
+\draw (1,2.3) -- (4.5,2.3) node[right]{$\to E$};
+\node at (1,2.3) [above right] {$\psi$};
+\node at (4.5, 2.3) [above left] {$[\neg\psi]^3$};
+
+\draw (-1,2.85) -- (2.25, 2.85) node[right]{$\to E$};
+\node at (-1, 2.85) [above right] {$[\varphi]^5$};
+\node at (2.25,2.85) [above left] {$[\varphi \to \psi]^1$};
+
+\draw (7.5,0.75) -- (12.5,0.75) node[right]{$\to I^2$};
+\node at (10,0.75) [above] {$\varphi \to \psi$};
+\draw (8.5,1.35) -- (11.5,1.35) node[right]{$\to I^4$};
+\node at (10,1.25) [above]{$\psi$};
+\draw (8.5,1.8) -- (11.5,1.8) node[right]{\raa$^6$};
+\node at (10,1.8) [above]{$\bot$};
+
+\draw (7.5,2.3) -- (12.5, 2.3) node[right]{$\to E$};
+\node at (7.5, 2.3) [above right] {$\neg\varphi$};
+\node at (12.5, 2.3) [above left] {$[\varphi]^4$}; 
+
+\draw (6.5,2.85) -- (10.5, 2.85) node[right]{$\to E$};
+\node at (6.5, 2.85) [above right] {$[\neg\psi]^6$};
+\node at (10.5, 2.85) [above left] {$[\neg \psi \to \neg \varphi]^2$};
 \end{tikzpicture}
 \end{center}
 
 
+\subsubsection{Esercizio}
+Trovare una derivazione di $\vdash (\varphi \wedge \psi) \leftrightarrow (\psi \wedge \varphi)$
+\begin{center}
+\includegraphics[width=13cm, height=5.6cm]{deriv1}
+\end{center}
+\newpage
+\subsection{Definizione di derivazione}
 
+L'insieme di tutte le derivazioni del sistema di ND$_p$ \`{e} il minimo insieme $X$ t.c.
+\begin{itemize}
+\item $\varphi \in X$ se $\varphi \in PROP$ (una formula atomica \`{e} una derivazione atomica).
+\item Suponiamo di avere una derivaziione di $\varphi \in X$ e una derivazione di $\psi \in X$, posso derivare $\varphi \wedge \psi$:
+\begin{center}
+\includegraphics[width=10cm, height=5cm]{def1}
+\end{center}
+\item Supponiamo di avere una derivazione di $(\varphi \wedge \psi) \in X$ allora possiamo derivare $\varphi$ e $\psi$:
+\begin{center}
+\includegraphics[width=10cm, height=4cm]{def2}
+\end{center}
+\item Supponiamo di avere una derivazione di $\varphi \in X$ e una derivazione di $(\varphi \to \psi) \in X$ allora possiamo derivare $\psi$:
+\begin{center}
+\includegraphics[width=13cm, height=3cm]{def3}
+\end{center}
+\end{itemize}
 
 
 
