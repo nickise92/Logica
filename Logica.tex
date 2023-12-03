@@ -19,6 +19,7 @@
 \newcommand\Iff{\Leftrightarrow}
 \newcommand\raa{RAA}
 \usepackage{graphicx}
+\usepackage{mathrsfs}
 
 \graphicspath{{./img/}}
 
@@ -848,7 +849,7 @@ Trovare una derivazione di $\vdash (\varphi \wedge \psi) \leftrightarrow (\psi \
 L'insieme di tutte le derivazioni del sistema di ND$_p$ \`{e} il minimo insieme $X$ t.c.
 \begin{itemize}
 \item $\varphi \in X$ se $\varphi \in PROP$ (una formula atomica \`{e} una derivazione atomica).
-\item Suponiamo di avere una derivaziione di $\varphi \in X$ e una derivazione di $\psi \in X$, posso derivare $\varphi \wedge \psi$:
+\item Suponiamo di avere una derivazione di $\varphi \in X$ e una derivazione di $\psi \in X$, posso derivare $\varphi \wedge \psi$:
 \begin{center}
 \includegraphics[width=10cm, height=5cm]{def1}
 \end{center}
@@ -860,9 +861,87 @@ L'insieme di tutte le derivazioni del sistema di ND$_p$ \`{e} il minimo insieme 
 \begin{center}
 \includegraphics[width=13cm, height=3cm]{def3}
 \end{center}
+\item Supponiamo di avere una derivazione da $\varphi \in X$ a $\psi \in X$, allora applicando la regola dell'introduzione dell'implicazione otteniamo che la derivazione risultante appartiene ad X:
+\begin{center}
+\includegraphics[width=10cm, height=6cm]{def4}
+\end{center}
 \end{itemize}
 
+\subsubsection{Esempi di derivazione}
+\begin{enumerate}
+\item $\vdash \varphi \to \varphi$:
+\begin{center}
+\includegraphics[width=8cm, height=4cm]{example1}
+\end{center}
+\item $\varphi \vdash \varphi \to (\psi \to \varphi)$:
+\begin{center}
+\includegraphics[width=8cm, height=4cm]{example2}
+\end{center}
+\item $\neg\varphi \vdash \varphi \to \psi$:
+\begin{center}
+\includegraphics[width=8cm, height=5cm]{example3}
+\end{center}
+\end{enumerate}
 
+\subsection{Regole dell'OR}
+
+Come visto in precedenza, l'espressione $\varphi \lor \psi$ pu\`{o} essere vista come un'abbreviazione di $\neg(\neg\varphi \wedge \neg \psi)$, ma esistono delle regole di derivazione specifiche per il connettivo $\lor$:
+
+\subsubsection{$\lor E$ - Or Elimination}
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (4,0) node[right]{$\lor E^1$};
+\draw[->][blue] (-0.5, 1.4) -- (0.5, 1.4);
+\node at (-0.5,1.4)[above left][blue] {Scarico le};
+\node at (-0.5,1.4)[below left][blue] {ipotesi};
+\node at (2,1.2)[above] {$[\varphi]^1$};
+\node at (2,1) {$\vdots$};
+\node at(2, 0)[above] {$\gamma$};
+\node at (3.5,1.2)[above] {$[\psi]^1$};
+\node at (3.5,1) {$\vdots$};
+\node at(3.5, 0)[above] {$\gamma$};
+\node at (0,0)[above right] {$\varphi \lor \psi$};
+\node at (2,0)[below] {$\gamma$};
+\end{tikzpicture}
+\end{center}
+Notare che l'eliminazione dell'or prevede lo scarico delle ipotesi, e che la formula che si ottiene \`{e} diversa da quelle che compongono la formula contenente il connettivo $\lor$.
+\begin{multicols}{2}
+\subsubsection{$\lor I_{1}$ - Or Introduction} 
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (2,0) node[right]{$\lor I_1$};
+\node at(1, 0)[above] {$\varphi$};
+\node at (1,0)[below] {$\varphi \lor \psi$};
+\end{tikzpicture}
+\end{center}
+
+\subsubsection{$\lor I_{2}$ - Or Introduction}
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (2,0) node[right]{$\lor I_2$};
+\node at(1, 0)[above] {$\psi$};
+\node at (1,0)[below] {$\varphi \lor \psi$};
+\end{tikzpicture}
+\end{center}
+\end{multicols}
+
+\newpage
+\section{Teorema di Correttezza - Soundness}
+
+\[ \Gamma \vdash \varphi \Rightarrow \Gamma \vDash \varphi \]
+\subsubsection{Dimostrazione}
+Per definizione, $\Gamma \vdash \varphi \iff$ esiste una derivazione $ \mathcal{D}$ con tutte le sue ipotesi in $\Gamma$, questo \`{e} sufficiente per dimostrare: per ogni derivazione $\mathcal{D}$ con conclusione $\varphi$ e ipotesi in $\Gamma$ abbiamo $\Gamma \vDash \varphi$. Usiamo ora l'induzione su $\mathcal{D}$.
+\begin{itemize}
+\item (\emph{p. base}) Se $\mathcal{D}$ ha un solo elemento, allora $\varphi \in \Gamma$.  Perci\`{o} $\Gamma \vDash \varphi$.
+\item (\emph{$\wedge$ I}) Ipotesi induttiva: $\mathcal{D} \atop \varphi$ e $\mathcal{D}' \atop \varphi'$ sono derivazioni e per ogni $\Gamma$, $\Gamma'$ contenenti le ipotesi di $\mathcal{D}$, $\mathcal{D}'$ abbiamo $\Gamma \vDash \varphi$ e $\Gamma' \vDash \varphi'$.
+
+Ora, se $\Gamma''$ contiene le ipotesi di
+ \[ \mathcal{D} \mathcal{D}' \atop \frac{\varphi \thickspace\thickspace \varphi'}{\varphi \wedge \varphi'}\]
+ e scegliamo $\Gamma$ e $\Gamma'$ come gli insiemi di tutte le ipotesi delle derivazioni $\mathcal{D}$ e $\mathcal{D}'$, possiamo 
+notare che $\Gamma'' \supseteq \Gamma \cup \Gamma'$.
+
+Quindi $\Gamma'' \vDash \varphi$ e $\Gamma'' \vDash \varphi'$. 
+\end{itemize}
 
 
 
