@@ -932,8 +932,8 @@ Notare che l'eliminazione dell'or prevede lo scarico delle ipotesi, e che la for
 \subsubsection{Dimostrazione}
 Per definizione, $\Gamma \vdash \varphi \iff$ esiste una derivazione $ \mathcal{D}$ con tutte le sue ipotesi in $\Gamma$, questo \`{e} sufficiente per dimostrare: per ogni derivazione $\mathcal{D}$ con conclusione $\varphi$ e ipotesi in $\Gamma$ abbiamo $\Gamma \vDash \varphi$. Usiamo ora l'induzione su $\mathcal{D}$.
 \begin{itemize}
-\item (\emph{p. base}) Se $\mathcal{D}$ ha un solo elemento, allora $\varphi \in \Gamma$.  Perci\`{o} $\Gamma \vDash \varphi$.
-\item (\emph{$\wedge$ I}) Ipotesi induttiva: $\mathcal{D} \atop \varphi$ e $\mathcal{D}' \atop \varphi'$ sono derivazioni e per ogni $\Gamma$, $\Gamma'$ contenenti le ipotesi di $\mathcal{D}$, $\mathcal{D}'$ abbiamo $\Gamma \vDash \varphi$ e $\Gamma' \vDash \varphi'$.
+\item (\emph{P. base}) Se $\mathcal{D}$ ha un solo elemento, allora $\varphi \in \Gamma$.  Perci\`{o} $\Gamma \vDash \varphi$.
+\item (\emph{$\wedge$ I}) Ipotesi induttive: $\mathcal{D} \atop \varphi$ e $\mathcal{D}' \atop \varphi'$ sono derivazioni e per ogni $\Gamma$, $\Gamma'$ contenenti le ipotesi di $\mathcal{D}$, $\mathcal{D}'$ abbiamo $\Gamma \vDash \varphi$ e $\Gamma' \vDash \varphi'$.
 
 Ora, se $\Gamma''$ contiene le ipotesi di
  \[ \mathcal{D} \mathcal{D}' \atop \frac{\varphi \thickspace\thickspace \varphi'}{\varphi \wedge \varphi'}\]
@@ -941,17 +941,88 @@ Ora, se $\Gamma''$ contiene le ipotesi di
 notare che $\Gamma'' \supseteq \Gamma \cup \Gamma'$.
 
 Quindi $\Gamma'' \vDash \varphi$ e $\Gamma'' \vDash \varphi'$. 
+
+Sia $\val{\psi}_v = 1$ per ogni $\psi \in \Gamma''$, allora $\val{\varphi}_v = \val{\varphi'}_v = 1$, quindi $\val{\varphi \wedge \varphi'}_v = 1$. Questo dimostra $\Gamma'' \vDash \varphi \wedge \varphi'$.
+\item (\emph{$\wedge$ E}) Ipotesi induttive: per ogni $\Gamma$ contente le ipotesi della derivazione 
+ \[ \mathcal{D} \atop \varphi \wedge \psi\]
+abbiamo che $\Gamma \vDash \varphi \wedge \psi$.  Considerando un $\Gamma$ contenente le ipotesi di $\mathcal{D}  \atop \frac{\varphi \wedge \psi}{\varphi}$ e $ \mathcal{D}  \atop \frac{\varphi \wedge \psi}{\psi}$, otteniamo $\Gamma \vDash \varphi$ e che $\Gamma \vDash \psi$. 
+
+Infatti $\val{\varphi \wedge \psi}_v = 1\iff \val{\varphi}_v = \val{\psi}_v = 1 \Rightarrow \Gamma \vDash \varphi$ e $\Gamma \vDash \psi$. 
+\item (\emph{$\to$ I}) Ipotesi induttive: Per ogni $\Gamma$ contenente le ipotesi di $\varphi \atop{\mathcal{D} \atop \psi}$, $\Gamma \vDash \varphi$. 
+Sia $\Gamma'$ contenente le ipotesi di $[\varphi] \atop{\mathcal{D} \atop \frac{\psi}{\varphi \to \psi}}$.  $\Gamma' \cup {\varphi}$ contiene tutte le ipotesi di $\varphi \atop{\mathcal{D} \atop \psi}$, allora se $\val{\varphi} = 1$ e $\val{x} = 1$ per ogni $x \in \Gamma'$, allora $\val{\psi} = 1$. 
+Perci\`{o}, per la tavola di verit\`{a} dell'implicazione, si pu\`{o} notare che $\val{\varphi \to \psi} = 1$ se tutte le proposizioni in $\Gamma'$ hanno valore 1. Quindi $\Gamma' \vDash \varphi \to \psi$.
+\item (\emph{$\to$ E}) Ipotesi induttive: Siano $\Gamma'$, $\Gamma''$ gli insiemi di tutte le ipotesi per la derivazione
+\begin{center}
+\begin{tikzpicture}
+\node at (0,1.7) [right] {$\Gamma'$};
+\node at (0,1) [right] {$\mathcal{D}'$}; 
+\node at (0,0) [above right] {$\varphi$};
+\node at (2.75,1.7) [left] {$\Gamma''$};
+\node at (2.75,1) [left] {$\mathcal{D}''$};
+\node at (3,0) [above left] {$\varphi \to \psi$};
+\draw (0,0) -- (3,0) node[right] {$\to E$};
+\node at (1.5,0) [below] {$\psi$};
+
+\node at (4.5,1) {$\Longrightarrow$};
+
+\node at (7, 1.7) {$\Gamma' \vDash \varphi$};
+\node at (7, 0) [above] {$\Gamma'' \vDash \varphi \to \psi$};
+\end{tikzpicture}
+\end{center}
+
+Sia $\Gamma = \Gamma' \cup \Gamma''$, allora $\Gamma \vDash \psi$, perch\'{e} si ha che:
+\[ \forall v \thickspace  \val{\Gamma'}_v = 1 \Rightarrow \val{\varphi}_v = 1 \]
+\[ \forall v \thickspace \val{\Gamma''}_v = 1 \Rightarrow \val{\varphi \to \psi}_v = 1\]
+Quindi
+\[ \forall v \thickspace \val{\Gamma}_v = 1 \Rightarrow \val{\psi}_v = 1 \]
+
+\item ($\bot$) Ipotesi induttive: Per ogni $\Gamma$ contenente tutte le ipotesi di $\mathcal{D} \atop \bot$, $\Gamma \vDash \bot$. 
+Siccome $\val{\bot} = 0$ per tutte le valutazioni, non ci sono valutazioni tali che $\val{\psi} = 1$ per ogni $\psi \in \Gamma$. 
+Sia $\Gamma'$ l'insieme delle ipotesi di
+\begin{center}
+\begin{tikzpicture}
+\node at (1,0.8) {$\mathcal{D}$};
+\node at (1,0) [above] {$\bot$};
+\draw (0.5,0) -- (1.5,0);
+\node at (1,0) [below] {$\varphi$};
+\end{tikzpicture}
+\end{center}
+e supponiamo  che $\Gamma' \cancel{\vDash} \varphi$, 
+allora $\val{\psi} = 1$ per ogni $\psi \in \Gamma'$ e $\val{\varphi} = 0$ per qualche valutazione. Essendo che $\Gamma'$ contiene tutte le ipotesi della prima derivazione abbiamo una contraddizione.
+
+\item (\emph{RAA}) Ipotesi induttiva: Per ogni $\Gamma$ che contiene tutte le ipotesi della derivazione  $\mathcal{D}$:
+\begin{center}
+\begin{tikzpicture}
+\node at (1,1) [above] {$\neg\varphi$};
+\node at (1,0.8) {$\mathcal{D}$};
+\node at (1,0) [above] {$\bot$};
+\end{tikzpicture}
+\end{center}
+abbiamo che $\Gamma \vDash \bot$. Sia $\Gamma'$ l'insieme che contiene tutte le ipotesi della derivazione $\mathcal{D}$:
+\begin{center}
+\begin{tikzpicture}
+\node at (1,1) [above] {$[\neg\varphi]$};
+\node at (1,0.8) {$\mathcal{D}$};
+\node at (1,0) [above] {$\bot$};
+\draw (0,0) -- (2,0);
+\node at (1,0) [below] {$\varphi$};
+\end{tikzpicture}
+\end{center}
+e supponiamo che $\Gamma' \cancel{\vDash} \varphi$, allora esiste una valutazione tale che $\val{\psi} = 1$ per ogni $\psi \in \Gamma'$ e 
+$\val{\varphi} = 0$, ovvero $\val{\neg\varphi} = 1$. Ma $\Gamma'' = \Gamma' \cup \{\varphi\}$ \`{e} l'insieme contenente tutte le ipotesi della prima derivazione e $\val{\psi} = 1$ per ogni $\psi \in \Gamma''$. Questo \`{e} impossibile siccome $\Gamma'' \vDash \bot$, quindi $\Gamma' \vDash \varphi$.
+\qed
 \end{itemize}
 
+Questo teorema ci consente di dimostrare che alcune proposizioni non sono teoremi, semplicemente mostrando che non sono tautologie. Senza questo teorema avremmo dovuto dimostrare che non esiste una derivazione (senza ipotesi aperte) della proposizione data. In generale questo richiederebbe una conoscenza di tutte le derivazioni.
 
-
-
-
-
-
-
-
-
+\subsection{Non derivabilit\`{a} di una formula}
+Possiamo dimostrare che una formula non \`{e} derivabile utilizzando la dimostrazione per assurdo. 
+Se $\Gamma \vdash \varphi$ porta all'assurdo, allora dimostriamo $\Gamma \cancel{\vdash} \varphi$.
+\subsubsection{Esempio}
+Se $\vdash \varphi \to (\varphi \wedge \psi)$ allora vale anche $\vDash \varphi \to (\varphi \wedge \psi)$.
+\[ \exists p_1 = \varphi, \exists p_2 = \psi, \exists v \text{ t. c. }\]
+\[ \val{p_1}_v = 1 \text{ e } \val{p_2}_v = 0\]
+Contraddizione $\Rightarrow \cancel{\vDash} \varphi \to (\varphi \wedge \psi) \Rightarrow \cancel{\vdash} \varphi \to (\varphi \wedge \psi)$.
 
 
 
